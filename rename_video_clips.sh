@@ -7,22 +7,25 @@
 # -t timefmt  Display timestamps using the specified format.  This format is passed directly to strftime(3).
     # https://ss64.com/mac/syntax-strftime.html
 
-for file in *.MP4; do
+file_types=( *.MP4 *.MOV *.HEIC)
+echo -e "\nThe following files will be renamed as follows:\n
+-------------------------------------------------------------"
+for file in "${file_types[@]}"; do
     creation_date=$(stat -f "%SB" -t "%m_%d_%Y_%H-%M%p" "$file")
     extension="${file##*.}"
     new_name="$creation_date.$extension"
-    echo "$file" " -- will be renamed to --> " "$new_name"
+    echo -e "\n$file" " --> " "$new_name"
 done
-
+echo -e "\n\n"
 read -p "Do you want to proceed with the renaming? (y/n): " response
 if [[ $response == "y" ]]; then
-    for file in *.MP4; do
+    for file in "${file_types[@]}"; do
         creation_date=$(stat -f "%SB" -t "%m_%d_%Y_%H-%M%p" "$file")
         extension="${file##*.}"
         new_name="$creation_date.$extension"
         mv "$file" "$new_name"
     done
-    echo "Files have been renamed."
+    echo -e "\nFiles have been renamed."
 else
-    echo "Renaming operation cancelled."
+    echo -e "\nRenaming operation cancelled."
 fi
