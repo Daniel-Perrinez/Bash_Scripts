@@ -1,0 +1,10 @@
+bash rename_video_clips.sh  "/Users/d1v3/Desktop/An_Appeal_to_Nature/Video_Clips/2021/2021-10-17/"
+
+bash rename_video_clips.sh  "/Users/d1v3/Desktop/Test/Bash_Scripts/"
+
+
+
+git checkout main
+git pull origin main
+git checkout -b update-methods
+git merge main
