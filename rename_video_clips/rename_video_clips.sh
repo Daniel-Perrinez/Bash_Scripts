@@ -28,20 +28,31 @@ createNewName () {
 
 echo -e "\nThe following files will be renamed as follows:\n
 -------------------------------------------------------------"
+total_files_to_update=0
 for file in "${file_types[@]}"; do
-    new_name=$(createNewName "$file")
-    echo -e "\n$file" " --> " "$new_name"
+    # Check if files of the current type exist
+    if [ -e "$file" ]; then
+        new_name=$(createNewName "$file")
+        echo -e "\n$file" " --> " "$new_name"
+        ((total_files_to_update++))
+    fi
 done
 
 echo -e "\n\n"
+echo -e "Total files to be changed: $total_files_to_update \n"
 read -p "Do you want to proceed with the renaming? (y/n): " response
 
+total_files_updated=0
 if [[ $response == "y" ]]; then
     for file in "${file_types[@]}"; do
-        new_name=$(createNewName "$file")
-        mv "$file" "$new_name"
+        if [ -e "$file" ]; then
+            new_name=$(createNewName "$file")
+            mv "$file" "$new_name"
+            ((total_files_updated++))
+        fi
     done
-    echo -e "\nFiles have been renamed."
+    echo -e "\n$total_files_updated Files have been renamed."
+    
 else
     echo -e "\nRenaming operation cancelled."
 fi
