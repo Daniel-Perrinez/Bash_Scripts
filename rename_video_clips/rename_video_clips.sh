@@ -18,7 +18,7 @@ echo -e "
         "
 ls -la
 
-file_types=( *.MP4 *.mp4 *.MOV *.HEIC)
+file_types=( *.MP4 *.mp4 *.MOV *.HEIC *.JPG *.jpg *JPEG *.jpeg)
 createNewName () {
     creation_date=$(stat -f "%SB" -t "%m_%d_%Y_%H_%M%p" "$1")
     extension="${1##*.}"
